@@ -29,8 +29,10 @@
 #ifndef OCTOMAP_SERVER__OCTOMAP_SERVER_HPP_
 #define OCTOMAP_SERVER__OCTOMAP_SERVER_HPP_
 
-#include <octomap/octomap.h>
-#include <octomap/OcTreeKey.h>
+// #include <octomap/octomap.h>
+#include "/home/swarm/code/octomap_ws/src/dynamic_octomap/octomap/include/octomap/octomap.h"
+// #include <octomap/OcTreeKey.h>
+#include "/home/swarm/code/octomap_ws/src/dynamic_octomap/octomap/include/octomap/OcTreeKey.h"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"  // pcl::SAC_SAMPLE_SIZE is protected since PCL 1.8.0 // NOLINT
@@ -65,27 +67,21 @@
 
 #include "octomap_ros/conversions.hpp"
 
-#include <ament_index_cpp/get_package_share_directory.hpp>
-
-// prefix 
-using namespace std::chrono_literals;
 
 // switch color here - easier maintenance, only maintain OctomapServer.
 // Two targets are defined in the cmake, octomap_server_color and octomap_server.
 // One has this defined, and the other doesn't
 // #define COLOR_OCTOMAP_SERVER
 
-// #ifdef COLOR_OCTOMAP_SERVER
+#ifdef COLOR_OCTOMAP_SERVER
+#include "/home/swarm/code/octomap_ws/src/dynamic_octomap/octomap/include/octomap/ColorOcTree.h"
 // #include <octomap/ColorOcTree.h>
-// #endif
+#endif
 
 #include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
-
-#include "TimedOcTree.h"
-#include "TimedOcTreeNode.h"
 
 namespace octomap_server
 {
@@ -99,16 +95,15 @@ using visualization_msgs::msg::MarkerArray;
 class OctomapServer : public rclcpp::Node
 {
 public:
-// #ifdef COLOR_OCTOMAP_SERVER
-//   using PCLPoint = pcl::PointXYZRGB;
-//   using PCLPointCloud = pcl::PointCloud<pcl::PointXYZRGB>;
-//   using OcTreeT = octomap::ColorOcTree;
-// #else
+#ifdef COLOR_OCTOMAP_SERVER
+  using PCLPoint = pcl::PointXYZRGB;
+  using PCLPointCloud = pcl::PointCloud<pcl::PointXYZRGB>;
+  using OcTreeT = octomap::ColorOcTree;
+#else
   using PCLPoint = pcl::PointXYZ;
   using PCLPointCloud = pcl::PointCloud<pcl::PointXYZ>;
-  // using OcTreeT = octomap::OcTree;
-  using OcTreeT = octomap::TimedOcTree;
-// #endif
+  using OcTreeT = octomap::OcTree;
+#endif
   using OctomapSrv = octomap_msgs::srv::GetOctomap;
   using BBoxSrv = octomap_msgs::srv::BoundingBoxQuery;
   using ResetSrv = std_srvs::srv::Empty;
@@ -314,13 +309,6 @@ protected:
   unsigned multires_2d_scale_;
   bool project_complete_map_;
   bool use_colored_map_;
-
-  std::string ns_;
-
-  // timer for decay
-  bool use_decay_;
-  double decay_duration_;
-
 };
 }  // namespace octomap_server
 

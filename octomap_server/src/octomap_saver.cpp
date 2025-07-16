@@ -26,7 +26,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <octomap/octomap.h>
+// #include <octomap/octomap.h>
+#include "/home/swarm/code/octomap_ws/src/dynamic_octomap/octomap/include/octomap/octomap.h"
 
 #include <chrono>
 #include <memory>

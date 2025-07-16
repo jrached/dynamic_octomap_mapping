@@ -67,8 +67,6 @@ protected:
   std::vector<double> arm_link_offsets_;
 
   MultilevelGrid multi_gridmap_;
-
-  std::string ns_;
 };
 }  // namespace octomap_server
 

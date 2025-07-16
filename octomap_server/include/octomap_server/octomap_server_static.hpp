@@ -29,7 +29,8 @@
 #ifndef OCTOMAP_SERVER__OCTOMAP_SERVER_STATIC_HPP_
 #define OCTOMAP_SERVER__OCTOMAP_SERVER_STATIC_HPP_
 
-#include <octomap/octomap.h>
+// #include <octomap/octomap.h>
+#include "/home/swarm/code/octomap_ws/src/dynamic_octomap/octomap/include/octomap/octomap.h"
 
 #include <memory>
 #include <string>
